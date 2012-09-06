@@ -54,6 +54,25 @@
 		}
 	}
 
+	/**
+	 * função que le um arquivo JSON
+	 * @param  [type]  $json        [description]
+	 * @param  boolean $converteURL [description]
+	 * @return [type]               [description]
+	 */
+	function readJSON ($json,$converteURL=false) 
+	{
+		if ($converteURL) {
+			 $json=urldecode($json);
+		}
+		if (get_magic_quotes_gpc()) {
+			$json=stripslashes($json);
+			return json_decode($json, true);
+		} else {
+			return json_decode($json, true);
+		}
+	}
+
 // 	/**
 // 	 * verifica se a página está sendo chamada via post
 // 	 * @return [type] [description]

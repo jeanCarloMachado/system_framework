@@ -36,7 +36,8 @@
 
         public function __construct()
         {
-            session_start();
+            if(!isset($_SESSION)) 
+                session_start();
             parent::__construct();
         }
 

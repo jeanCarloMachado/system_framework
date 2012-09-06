@@ -97,7 +97,7 @@
 			 * @var [type]
 			 */
 
-			$this->ajax = readJSON($_POST[$this->ajaxName]);
+			$this->ajax = isset($_POST[$this->ajaxName]) ? readJSON($_POST[$this->ajaxName]) : null;
 			
 
 			$this->_authenticator = new System_Plugins_Authenticatable_Authenticator;

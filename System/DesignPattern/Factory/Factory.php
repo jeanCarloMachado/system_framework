@@ -2,8 +2,8 @@
 	/**
 	 * interface para fazer requisicoes por soap
 	 */
-	require_once 'includes/library/System/DesignPattern/Factory/Interface.php';
-	require_once 'includes/library/System/Plugins/Interface.php';
+	require_once 'System/DesignPattern/Factory/Interface.php';
+	require_once 'System/Plugins/Interface.php';
 
 
 	class System_DesignPattern_Factory_Factory implements System_Plugins_Interface,System_DesignPattern_Factory_Interface {

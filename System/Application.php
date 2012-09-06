@@ -5,13 +5,35 @@
     /**
      * CLASSE DA APLICAÇÃO (INICIA-SE OBJETOS, BOOTSTRAP, ETC)
      */
-    class System_Application
+    class System_Application implements System_Application_Interface 
     {
-        private $frontController;
-        private $autoloader;
-        private $url;
+        /**
+         * controlador frontal do sistema
+         */
+        private $_frontController;
+
+        /**
+         * classe de autoload do sistema
+         */
+        private $_autoloader;
+
+        /**
+         * url do sistema
+         * @var [type]
+         */
+        private $_url;
+        
+        /**
+         * sufixo de um controlador padrao
+         * @var string
+         */
         private $_controllerSuffix = "_Controller";
 
+        /**
+         * arquivo de bootstrap executado junto com o construtor
+         * @var [type]
+         */
+        private $_bootstrap;
 
         /**
          * nomes dos módulos para remover da url
@@ -30,7 +52,13 @@
             /**
              * ATIVA O AUTOLOADER
              */
-            $this->autoloader = new System_Autoloader();                 
+            $this->_autoloader = new System_Autoloader();  
+
+            /**
+             * executao o bootstrap default
+             * @var System_Application_Bootstrap_Bootstrap
+             */
+            $this->_boostrap = new System_Application_Bootstrap_Bootstrap;              
         }
         
         /**
@@ -38,7 +66,7 @@
          */
         public function run()
         {
-            $front = $this->frontController= System_FrontController::getInstance();
+            $front = $this->_frontController= System_FrontController::getInstance();
 
             
            
@@ -77,11 +105,11 @@
          //----------------GETTERS & SETTERS ----------------
         public function setURL($url)
         {
-            $this->url = $url;
+            $this->_url = $url;
             /**
              * ATIVA O FRONT CONTROLLER
              */
-            $this->frontController = System_FrontController::getInstance();
+            $this->_frontController = System_FrontController::getInstance();
 
             $isModule = false;
             /**
@@ -105,7 +133,7 @@
             /**
              * seta controlador e visão
              */
-            $this->frontController->setMVC($url[0],$url[1],$isModule);
+            $this->_frontController->setMVC($url[0],$url[1],$isModule);
 
             /**
              * desfaz o nome do controlador e da visao
@@ -116,12 +144,12 @@
             /**
              * seta os parametros passados pela url
              */
-            $this->frontController->setUrlParameters($url);
+            $this->_frontController->setUrlParameters($url);
 
         }
         public function getURL()
         {
-            return $this->url;
+            return $this->_url;
         }
         //----------------FIM GETTERS & SETTERS ----------------
        

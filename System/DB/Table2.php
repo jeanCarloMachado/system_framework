@@ -1,9 +1,9 @@
 <?php
-	require_once 'includes/library/System/DesignPattern/Factory/Factory.php';
-	require_once 'SQL.php';
-	require_once 'Where.php';
-	require_once 'Run/Mysql.php';
-	require_once 'Run/Zend.php';
+	require_once 'System/DesignPattern/Factory/Factory.php';
+	require_once 'System/DB/SQL.php';
+	require_once 'System/DB/Where.php';
+	require_once 'System/DB/Run/Mysql.php';
+	require_once 'System/DB/Run/Zend.php';
 
 	/* Classe abstrata que define as funções de manuseio com o 
 	banco de dados os modelos que estenderem essa classe poderão

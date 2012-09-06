@@ -21,5 +21,14 @@
 		 * @return [type] [description]
 		 */
 		function preDispatch();
+
+		/**
+		 * arquivos de controladores deve seguir o seguinte padrao:
+		 * _funcaoAjax (para respostas ajax)
+		 * _funcoesInternas 
+		 * funcao (para funcioes normais)
+		 */
+		
+
 	}
 ?>
