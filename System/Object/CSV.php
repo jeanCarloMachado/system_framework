@@ -52,7 +52,7 @@
 				fclose($this->_handle);
 		}
 
-		public static function initialize($className,$params=null) 
+		public static function Factory($params=null) 
 		{
 
 			$obj = new System_Object_CSV;
@@ -67,7 +67,7 @@
 		 * le o arquivo csv
 		 * @return [type] [description]
 		 */
-		public function read($currRow=null,$rowsToGet=nulll) 
+		public function read($currRow=null,$rowsToGet=null) 
 		{
 			/**
 			 * testa se foram passados parametros para filtrar a seleção

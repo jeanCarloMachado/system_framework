@@ -3,7 +3,7 @@
     /**
      * autenticação no sistema
      */
-    abstract class System_Auth extends System_DB_IOBase implements System_Auth_Interface, System_DesignPattern_Strategy_Interface 
+    abstract class System_Auth extends System_DB_Table implements System_Auth_Interface, System_DesignPattern_Strategy_Interface 
     {
 
         /**
@@ -38,9 +38,12 @@
         {
             if(!isset($_SESSION)) 
                 session_start();
-            parent::__construct();
-        }
 
+            /**
+             * essa parte foi apagada por compatibilidade com o zf
+             */
+            //parent::__construct();
+        }
         /**
          * inicializa a classe pai e retorna o objeto adequado de acordo com
          * className
@@ -55,6 +58,7 @@
              */
             
            $className = self::$_childPrefix.$className;
+
            $obj = new $className;
 
            /**

@@ -3,7 +3,7 @@
 	/**
 	 * clase abstrata de bootstrap
 	 */
-	abstract class System_Application_Bootstrap_Bootstrap implements System_Application_Bootstrap_Interface
+	class System_Application_Bootstrap_Bootstrap implements System_Application_Bootstrap_Interface
 	{
 
 		/** construtor de bootstrap default */

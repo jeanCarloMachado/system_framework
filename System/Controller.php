@@ -40,13 +40,18 @@
 		 */
 		public function load($class,$methodName,$parameters=null)
 		{
+
+
 			$this->_authenticator->testAuthentication($methodName);
+			
+
 			/**
 			 * executa o pre-dispatch
 			 */
 			$this->preDispatch();
 
 			$class->$methodName($parameters);
+
 		}
 
 		public function init()
@@ -96,14 +101,33 @@
 			 * Le os dados passados por json
 			 * @var [type]
 			 */
-
 			$this->ajax = isset($_POST[$this->ajaxName]) ? readJSON($_POST[$this->ajaxName]) : null;
 			
 
 			$this->_authenticator = new System_Plugins_Authenticatable_Authenticator;
 
+
+			$this->start();
+
+			/**
+			 * se for zend pega a requisicao nesse momento e a valida
+			 */
+			$actionName = $this->getRequest()->getActionName();
+
+
+
+			if($actionName) {
+				$this->preDispatch();
+				$this->load($this,$actionName,$parameters=null);
+			}
+
 		}
 
+		/**
+		 * funcao executada depois do init
+		 * @return [type] [description]
+		 */
+		public function start() {}
 		   
 		public function getModule()
 		{

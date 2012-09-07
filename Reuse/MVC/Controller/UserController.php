@@ -1,5 +1,5 @@
 <?php
-	class Reuse_MVC_Controller_UserController extends System_Controller 
+	abstract class Reuse_MVC_Controller_UserController extends System_Controller 
 	{
 		/**
 		 * instancia de System_Auth
@@ -12,12 +12,11 @@
 		 */
 		public function preDispatch()
 		{
-			global $endereco_site;
 			/**
 			 * faz autenticação automática em todos os métodos
 			 */
 			$this->_authenticator->enableAuthentication();
-			$this->_authenticator->setErrorPath("$endereco_site/home/");
+			$this->_authenticator->setErrorPath(DEFAULT_ERROR_PATH);
 			/**
 			 * seta as funções que não necessitarão autenticação
 			 */
@@ -27,7 +26,7 @@
 
 		}
 
-		public function login() 
+		public function loginAjax() 
 		{
 			if($this->ajax['acao']=="login") {
 				global $endereco_site;
@@ -45,7 +44,7 @@
 		 * faz logoff no sistema
 		 * @return [type] [description]
 		 */
-		public function logoff() 
+		public function logoffAjax() 
 		{
 			global $endereco_site;
 

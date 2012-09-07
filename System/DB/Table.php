@@ -3,7 +3,7 @@
 	/**
 	 * essa classe contém as query's básicas para utilização em modelos
 	 */
-	class System_DB_Table extends Zend_DB_Table_Abstract implements System_DB_Table_Interface
+	abstract class System_DB_Table extends Zend_Db_Table_Abstract implements System_DB_Table_Interface
 	{
 		/**
 		 * nome da tabela no banco de dados
@@ -17,9 +17,25 @@
 		 */
 		public $_rowSet;
 
+		/**
+		 * ultimo sql executado
+		 * @var [type]
+		 */
+		protected $_query;
+
+		
+		public function __construct() 
+		{
+			parent::__construct();
+
+			$this->run("SET NAMES 'utf8'");
+		}
 
 		public function create($array)
 		{	
+			$this->_setQuery(array('query'=>'CREATE','data'=>$array));
+
+
 			$array = $this->atribution($array);
 			//dg($array);
 
@@ -37,6 +53,7 @@
 		 */
 		public function get($array,$params=null,$columns=null)
 		{
+			$this->_setQuery(array('query'=>'GET','data'=>$array));
 
 			$where = $array;
 
@@ -75,8 +92,12 @@
 
   		public function getTree($array,$params=null,$columns=null) 
   		{
-  			$result = $this->get($array,$params=null,$columns=null);
 
+  			$this->_setQuery(array('query'=>'GET TREE','data'=>$array));
+
+
+  			$result = $this->get($array,$params=null,$columns=null);
+  			//dg($result);
 
   			foreach($this->_dependentTables as $table) {
 
@@ -114,6 +135,9 @@
 
 		public function delete($where)
 		{
+
+			$this->_setQuery(array('DELETE'=>'UPDATE','data'=>$where));
+
 			$where = $this->atribution($where);
 
 			foreach($where as $elementId => $element) {
@@ -151,6 +175,11 @@
 			 * @var [type]
 			 */
 			$result = $this->get($cleanWhere,null,array('id'));
+
+			/**
+			 * SETA A QUERY
+			 */
+			$this->_setQuery(array('query'=>'UPDATE','data'=>$set));
 
 			return $result;
 		}
@@ -252,10 +281,31 @@
 		 * @return [type]      [description]
 		 */
 		public function run($sql) 
-		{
-			return $this->_fetch($sql);			
+		{	
+			$this->setQuery($sql);
+			return $this->_db->query($sql);			
 		}
 
+
+		public function getQuery()
+		{
+		    return $this->_query;
+		}
+		
+		public function setQuery($query)
+		{
+		    $this->_query = $query;
+		}
+
+		/**
+		 * seta a query para a utilizacao do getquery (funcao interna)
+		 * @param [type] $data [description]
+		 */
+		private function _setQuery($data)
+		{
+			$this->_query = 'QUERY '.strtolower($data['query']).' ON TABLE '.$this->_name.' DATA: '.$data['data'].'';
+			return true;
+		}
 
 		/**
 		 * ---------------------------------------------------------------------------------
@@ -285,5 +335,18 @@
 		{
 			return $this->update($set,$where);
 		}
+
+		public function getTableName()
+		{
+		    return $this->_name;
+		}
+		
+		public function setTableName($tableName)
+		{
+		    $this->_name = $tableName;
+		}
+		
+		
+		
 	}
 ?>

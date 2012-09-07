@@ -46,7 +46,7 @@
         public function getTree($array,$params=null,$columns=null)
         {
 
-            $result = $this->get($where,$params);
+            $result = $this->get($array,$params);
             $fotos = new Reuse_ACK_Model_Fotos();
 
 

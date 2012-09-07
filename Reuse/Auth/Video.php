@@ -1,6 +1,6 @@
 <?php
 	
-	class Reuse_Auth_Estatistica extends System_Auth
+	class Reuse_Auth_Video extends System_Auth
 	{	
 		
 		/**
@@ -9,8 +9,8 @@
 		 */
 		public function customSettings()
 		{
-			$this->_tableName = "ec_user";
-			$this->_identityColumn = "name";
+			$this->_tableName = "users";
+			$this->_identityColumn = "login";
 			$this->_credentialColumn = "password";
 		}
 	}

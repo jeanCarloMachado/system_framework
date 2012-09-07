@@ -1,6 +1,7 @@
 <?php
-    require_once 'FrontController.php';
-    require_once 'Autoloader.php';
+    require_once 'System/FrontController.php';
+    require_once 'System/Autoloader.php';
+    require_once 'System/Application/Interface.php';
 
     /**
      * CLASSE DA APLICAÇÃO (INICIA-SE OBJETOS, BOOTSTRAP, ETC)

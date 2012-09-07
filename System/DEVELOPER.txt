@@ -1,0 +1,7 @@
+Arquivo de padronização para o desenvolvedor System_Framework
+
+funções de controladores que usam ajax
+	funcaoAjax();
+
+variaves que serão utilizadas somente pela própria classe
+	 $_variable;

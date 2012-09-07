@@ -17,7 +17,7 @@
 		 * lista de métodos que não serão autenticados pelo servico
 		 * @var boolean
 		 */
-		protected $_exceptions = null;
+		protected $_exceptions = array();
 
 		/**
 		 * view a carregar caso nao esteja autenticado
@@ -58,12 +58,16 @@
 
 		public function setExceptions($array)
 		{
-			$this->exceptions = $array;
+			foreach($array as $element) {
+				array_push($this->_exceptions,$element);
+			}
+
+			$this->_exceptions = $array;
 		}
 
 		public function getExceptions()
 		{
-			return $this->exceptions;
+			return $this->_exceptions;
 		}
 
 		public function authenticationIsEnabled()
@@ -97,24 +101,28 @@
 		}
 
 		public function testAuthentication($methodName)
-		{
-			$this->_authenticator = System_Auth::Factory('Default',null);
-			$this->setAuthenticator();
-			$auth = $this->getAuthenticator();		
+		{	
+
+			$this->_authenticator = System_Auth::Factory('Video',null);
+
+			$auth = $this->getAuthenticator();	
+
+
 
 			if($this->authenticationIsEnabled() && (!$auth->isAuth()))
 			{		/**
 				 * testa se o método está no array
 				 */
+						
 				if(!in_array($methodName,$this->getExceptions()))
 				{
-					$errorPath = $this->getErrorPath();
-					if(!isset($errorPath))
+					$_errorPath = $this->getErrorPath();
+					if(!isset($_errorPath))
 					{
 						throw new Exception('Método não autenticado e nenhum caminho passado para error.');
 					}
-
-					header("Location: ".$errorPath."");
+					header("Location: $_errorPath");
+					die;
 				}
 
 				return;
