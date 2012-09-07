@@ -23,7 +23,6 @@
 			$this->_authenticator->setExceptions(array('login','recsenha_ajax'));
 
 			$this->_auth = System_Auth::Factory('Default',null);
-
 		}
 
 		public function loginAjax() 

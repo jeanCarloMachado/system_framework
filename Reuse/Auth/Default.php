@@ -9,7 +9,6 @@
 		 */
 		public function customSettings()
 		{
-			session_start();
 
 			$this->_tableName = "usuarios_ikro";
 			$this->_identityColumn = "desp_cod";

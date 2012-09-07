@@ -193,7 +193,7 @@
          */
         public function isAuth()
         {
-            if($_SESSION[$this->_tableName]['auth']['isAuth'])
+            if(@$_SESSION[$this->_tableName]['auth']['isAuth'])
                     return true;
             return false;
         }
