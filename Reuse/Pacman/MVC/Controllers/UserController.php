@@ -28,7 +28,7 @@
 			/**
 	    		 * adiciona o javascript de usuario
 	    		 */
-		  	$this->view->headScript()->appendFile($this->view->baseUrl().'/js/System/user.js');
+		  	$this->view->headScript()->appendFile($this->view->baseUrl().'/js/Pacman/user.js');
 
 		}
 
