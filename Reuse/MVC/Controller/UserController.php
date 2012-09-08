@@ -1,6 +1,9 @@
 <?php
 	abstract class Reuse_MVC_Controller_UserController extends System_Controller 
 	{
+
+		const URL_RETURN = '/index/index';
+
 		/**
 		 * instancia de System_Auth
 		 * @var [type]
@@ -12,24 +15,26 @@
 		 */
 		public function preDispatch()
 		{
+			global $endereco_site;
 			/**
 			 * faz autenticação automática em todos os métodos
 			 */
 			$this->_authenticator->enableAuthentication();
-			$this->_authenticator->setErrorPath(DEFAULT_ERROR_PATH);
+			$this->_authenticator->setErrorPath("$endereco_site/home/");
 			/**
 			 * seta as funções que não necessitarão autenticação
 			 */
 			$this->_authenticator->setExceptions(array('login','recsenha_ajax'));
 
 			$this->_auth = System_Auth::Factory('Default',null);
-		}
 
+		}
+		
 		/**
-	     * efetua o login do usuario
-	     * @return [type] [description]
-	     */
-	    public function loginajaxAction() 
+		 * efetua o login do usuario
+		 * @return [type] [description]
+		 */
+		public function loginajaxAction() 
 		{	
 			$this->_helper->layout()->disableLayout();
 			$this->_helper->viewRenderer->setNoRender(true);
@@ -39,7 +44,7 @@
 													$this->ajax['password']);
 
 			if($authenticated) {
-			 	$result =  array('status'=>1,'result'=>array('url'=>'/user/index'));			
+			 	$result =  array('status'=>1,'result'=>array('url'=>self::URL_RETURN));			
 			} else {
 			 	$result =  array('status'=>0,'result'=>'');			
 			}
@@ -54,17 +59,10 @@
 		{
 			$this->_helper->layout()->disableLayout();
 			$this->_helper->viewRenderer->setNoRender(true);
-			
-			global $endereco_site;
+		    	$this->_auth->logoff();
 
-	        	$this->_auth->logoff();
-				$retorno = array('status'=>1,'url'=> $endereco_site.'/home/');	 
-
-			echo newJSON($retorno);
+		    	header('Location: '.self::URL_RETURN);
 		}	
-
-
-
 
 		public function editar() 
 		{
