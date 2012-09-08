@@ -25,37 +25,46 @@
 			$this->_auth = System_Auth::Factory('Default',null);
 		}
 
-		public function loginAjax() 
-		{
-			if($this->ajax['acao']=="login") {
-				global $endereco_site;
-				$authenticated = $this->_auth->authenticate($this->ajax['usuario'],$this->ajax['senha']);
-				if($authenticated) {
-					$result =  array('status'=>1,'url'=>"$endereco_site/usuario/editar/");			
-				} else {
-					$result =  array('status'=>0,'url'=>"$endereco_site/home/");	
-				}
+		/**
+	     * efetua o login do usuario
+	     * @return [type] [description]
+	     */
+	    public function loginajaxAction() 
+		{	
+			$this->_helper->layout()->disableLayout();
+			$this->_helper->viewRenderer->setNoRender(true);
+
+			global $endereco_site;
+			$authenticated = $this->_auth->authenticate($this->ajax['login'],
+													$this->ajax['password']);
+
+			if($authenticated) {
+			 	$result =  array('status'=>1,'result'=>array('url'=>'/user/index'));			
+			} else {
+			 	$result =  array('status'=>0,'result'=>'');			
 			}
 			echo newJSON($result);
-		}	
+		}
 
 		/**
 		 * faz logoff no sistema
 		 * @return [type] [description]
 		 */
-		public function logoffAjax() 
+		public function logoffajaxAction() 
 		{
+			$this->_helper->layout()->disableLayout();
+			$this->_helper->viewRenderer->setNoRender(true);
+			
 			global $endereco_site;
 
-			if($this->ajax['acao'] == 'logoff') {
-			        	$this->_auth->logoff();
-	        			$retorno = array('status'=>1,'url'=> $endereco_site.'/home/');	 
-			} else {
-				$retorno = array('status'=>0,'mensagem'=> 'Você não está logado.');	
-			}
+	        	$this->_auth->logoff();
+				$retorno = array('status'=>1,'url'=> $endereco_site.'/home/');	 
 
 			echo newJSON($retorno);
-		}
+		}	
+
+
+
 
 		public function editar() 
 		{

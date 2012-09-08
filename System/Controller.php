@@ -16,7 +16,7 @@
 		 * nome da variavel que recebe o json
 		 * @var [type]
 		 */
-		protected $ajaxName = 'ajaxACK';
+		protected $ajaxName = JSON_PACKAGE_NAME;
 
 
 		/**

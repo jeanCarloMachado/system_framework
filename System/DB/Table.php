@@ -303,7 +303,7 @@
 		 */
 		private function _setQuery($data)
 		{
-			$this->_query = 'QUERY '.strtolower($data['query']).' ON TABLE '.$this->_name.' DATA: '.$data['data'].'';
+			//$this->_query = 'QUERY '.strtolower($data['query']).' ON TABLE '.$this->_name.' DATA: '.$data['data'].'';
 			return true;
 		}
 

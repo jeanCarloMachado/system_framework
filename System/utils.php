@@ -73,6 +73,10 @@
 		}
 	}
 
+	function newJSON ($data) {
+		return json_encode($data);
+	}
+
 // 	/**
 // 	 * verifica se a página está sendo chamada via post
 // 	 * @return [type] [description]

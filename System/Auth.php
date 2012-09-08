@@ -36,13 +36,14 @@
 
         public function __construct()
         {
+            parent::__construct();
+
             if(!isset($_SESSION)) 
                 session_start();
 
             /**
              * essa parte foi apagada por compatibilidade com o zf
              */
-            //parent::__construct();
         }
         /**
          * inicializa a classe pai e retorna o objeto adequado de acordo com
@@ -136,7 +137,7 @@
             $return = $this->ioGet($whereClausule);
            // dg($this->getQuery());
 
-            if(is_array($return[0]))
+            if(@is_array($return[0]))
             {
                 
                //caso a pesquisa retorne se cria a sessao de autenticacao
