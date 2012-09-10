@@ -40,7 +40,7 @@
 		 * @param  [type] $column [description]
 		 * @return [type]         [description]
 		 */
-		function mergeArraysByColumn(&$arrays,$column) 
+		public function mergeArraysByColumn(&$arrays,$column) 
 		{
 			$result = array();
 			foreach($arrays as $arrayId => $array) {	
@@ -58,7 +58,7 @@
 		 * @param  [type] $string=null [description]
 		 * @return [type]              [description]
 		 */
-		function implodeRecursively($array,$string=null) 
+		public function implodeRecursively($array,$string=null) 
 		{
 
 			if(is_array($array)) {
@@ -80,24 +80,45 @@
 		 * @param  [type] $key    [description]
 		 * @return [type]         [description]
 		 */
-		function sortByInternalKey($array,$key)
+		public function sortByInternalKey(&$array,$key,$order = 'asc')
 		{	
+
+			$order = strtolower($order);
 			$size = sizeof($array);
 
-			for ($i=0; $i<$size; $i++) {
+
+			if($order == 'asc') {
+
+				for ($i=0; $i<$size; $i++) {
+
 			       	 for ($j=0; $j<$size-1-$i; $j++) {
 
-				            if ($array[$j+1][$key] < $array[$j][$key]) {
-						$this->swap($array, $j, $j+1);
+			            if ($array[$j+1][$key] < $array[$j][$key]) {
+
+		            		$this->swap($array, $j, $j+1);
+						}
 					}
 				}
+
+			} else {
+
+					for ($i=0; $i<$size; $i++) {
+
+			       	 for ($j=0; $j<$size-1-$i; $j++) {
+
+			            if ($array[$j+1][$key] > $array[$j][$key]) {
+
+		            		$this->swap($array, $j, $j+1);
+						}
+					}
+				}		
 			}
 
 			return $array;
 		}
 
 
-		function swap(&$arr, $a, $b) {
+		private function swap(&$arr, $a, $b) {
 		    $tmp = $arr[$a];
 		    $arr[$a] = $arr[$b];
 		    $arr[$b] = $tmp;
