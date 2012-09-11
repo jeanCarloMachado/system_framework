@@ -2,22 +2,26 @@
 	
 	abstract class System_Controller extends Zend_Controller_Action implements System_Controller_Interface
 	{
+
+		const JSON_PACKAGE_NAME = 'pacman';
+
 		/**
 		 *  módulo do ack
 		 * @var int
 		 */
 		protected $_module;
+
 		/**
 		 * variavel que guarda as informações recebidas por json
 		 * @var [type]
 		 */
 		protected $ajax;
+
 		/**
 		 * nome da variavel que recebe o json
 		 * @var [type]
 		 */
-		protected $ajaxName = JSON_PACKAGE_NAME;
-
+		protected $ajaxName = self::JSON_PACKAGE_NAME;
 
 		/**
 		 * plugin responsável pela autenticação automática do sistema
@@ -49,6 +53,7 @@
 			 * executa o pre-dispatch
 			 */
 			$this->preDispatch();
+
 
 			$class->$methodName($parameters);
 

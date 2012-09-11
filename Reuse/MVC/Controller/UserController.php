@@ -3,6 +3,7 @@
 	{
 
 		const URL_RETURN = '/index/index';
+		const AUTH_FILE = 'Default';
 
 		/**
 		 * instancia de System_Auth
@@ -24,9 +25,9 @@
 			/**
 			 * seta as funções que não necessitarão autenticação
 			 */
-			$this->_authenticator->setExceptions(array('login','recsenha_ajax'));
+			$this->_authenticator->setExceptions(array());
 
-			$this->_auth = System_Auth::Factory('Default',null);
+			$this->_auth = System_Auth::Factory(AUTH_FILE,null);
 
 		}
 		
@@ -34,12 +35,12 @@
 		 * efetua o login do usuario
 		 * @return [type] [description]
 		 */
+		public function loginajax(){}
+
 		public function loginajaxAction() 
 		{	
 			$this->_helper->layout()->disableLayout();
 			$this->_helper->viewRenderer->setNoRender(true);
-
-			global $endereco_site;
 			$authenticated = $this->_auth->authenticate($this->ajax['login'],
 													$this->ajax['password']);
 
@@ -48,6 +49,7 @@
 			} else {
 			 	$result =  array('status'=>0,'result'=>'');			
 			}
+
 			echo newJSON($result);
 		}
 
@@ -55,6 +57,7 @@
 		 * faz logoff no sistema
 		 * @return [type] [description]
 		 */
+		public function logoffajax(){}
 		public function logoffajaxAction() 
 		{
 			$this->_helper->layout()->disableLayout();
@@ -62,7 +65,14 @@
 		    	$this->_auth->logoff();
 
 		    	header('Location: '.self::URL_RETURN);
-		}	
+		}
+
+		public function logoff(){}
+		public function logoffAction()
+		{
+			return $this->logoffajaxAction();			
+		}
+
 
 		public function editar() 
 		{

@@ -1,6 +1,6 @@
 <?php
 	
-	class Reuse_Auth_Video extends System_Auth
+	class Reuse_Auth_Pacman extends System_Auth
 	{	
 		
 		/**

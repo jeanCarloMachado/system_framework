@@ -3,14 +3,9 @@
     /**
      * autenticação no sistema
      */
-    abstract class System_Auth extends System_DB_Table implements System_Auth_Interface, System_DesignPattern_Strategy_Interface 
+    class System_Auth implements System_Auth_Interface, System_DesignPattern_Strategy_Interface 
     {
 
-        /**
-         * nome da tabela no bd
-         * @var string
-         */
-        protected $_tableName;
         /**
          * coluna de login
          * @var string
@@ -28,23 +23,26 @@
          */
         public $_params;
 
+
+        /**
+         * classe de usuario
+         * @var [type]
+         */
+        protected $_user;
+
+        /**
+         * nome do arquivo da classe de usuario extendendo System_DB_Table
+         * @var [type]
+         */
+        protected $_userTableModel;
+
+
         /**
          * prefixo para os filhos
          * @var string
          */
-        protected  static $_childPrefix = "Reuse_Auth_";
+        const CHILD_PREFIX = "Reuse_Auth_";
 
-        public function __construct()
-        {
-            parent::__construct();
-
-            if(!isset($_SESSION)) 
-                session_start();
-
-            /**
-             * essa parte foi apagada por compatibilidade com o zf
-             */
-        }
         /**
          * inicializa a classe pai e retorna o objeto adequado de acordo com
          * className
@@ -53,36 +51,36 @@
          */
         static public function Factory($className,$parameters)
         {
-           /**
-             * instancia uma classe filha
-             * @var ??
-             */
-            
-           $className = self::$_childPrefix.$className;
+            /**
+            * instancia uma classe filha
+            * @var ??
+            */
+            $className = self::CHILD_PREFIX.$className;
 
-           $obj = new $className;
+            $obj = new $className;
 
-           /**
+
+            $obj->customSettings();
+
+
+            $obj->_user = new $obj->_userTableModel;
+
+
+            /**
             * nome da classe
             * @var [type]
             */
-           $obj->_tableName = $className;
+            $obj->_tableName = $className;
 
             /**
-             * seta os parametros para a requisicao
-             */
+            * seta os parametros para a requisicao
+            */
             $obj->setParams($parameters);
 
-            /**
-             * executas as configurações específicas
-             */
-            $obj->customSettings();
-
-            $obj->setTableName($obj->_tableName);
 
             /**
-             * retorna o objeto
-             */
+            * retorna o objeto
+            */
             return $obj;
         }   
 
@@ -134,15 +132,15 @@
                                     $this->_credentialColumn => md5($_password)
                                    );
             
-            $return = $this->ioGet($whereClausule);
+            $return = $this->_user->get($whereClausule);
            // dg($this->getQuery());
 
             if(@is_array($return[0]))
             {
                 
                //caso a pesquisa retorne se cria a sessao de autenticacao
-               $_SESSION[$this->_tableName]['auth']['isAuth'] = true;
-               $_SESSION[$this->_tableName]['auth']['user'] = $return[0];
+               $_SESSION[$this->_user->getTableName()]['auth']['isAuth'] = true;
+               $_SESSION[$this->_user->getTableName()]['auth']['user'] = $return[0];
                return true;
             }
             return false;
@@ -158,7 +156,7 @@
         {
             if(isset($_login) && isset($_password))
             {
-                $result = $this->ioGet(array($this->_identityColumn=>$_login,
+                $result = $this->_user->get(array($this->_identityColumn=>$_login,
                                                         $this->_credentialColumn=>md5($_password)));
                 if(isset($result[0]))
                     return true;
@@ -175,7 +173,7 @@
         {
             foreach($array as $collumnName => $collumnValue)
             {
-                $_SESSION[$this->_tableName]['auth']['user'][$collumnName] =  $collumnValue;
+                $_SESSION[$this->_user->getTableName()]['auth']['user'][$collumnName] =  $collumnValue;
             }
         }
 
@@ -185,7 +183,7 @@
          */
         public function getUser()
         {
-            return $_SESSION[$this->_tableName]['auth']['user'];
+            return $_SESSION[$this->_user->getTableName()]['auth']['user'];
         }
         
         /**
@@ -194,7 +192,8 @@
          */
         public function isAuth()
         {
-            if(@$_SESSION[$this->_tableName]['auth']['isAuth'])
+
+            if(@$_SESSION[$this->_user->getTableName()]['auth']['isAuth'])
                     return true;
             return false;
         }
@@ -205,10 +204,10 @@
          */
         public function logoff()
         {
-            if(isset($_SESSION[$this->_tableName]['auth']))
+            if(isset($_SESSION[$this->_user->getTableName()]['auth']))
             {
-                $_SESSION[$this->_tableName]['auth'] = false;
-                unset($_SESSION[$this->_tableName]['auth']);
+                $_SESSION[$this->_user->getTableName()]['auth'] = false;
+                unset($_SESSION[$this->_user->getTableName()]['auth']);
                 return true;
             }
             return false;

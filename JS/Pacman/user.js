@@ -1,4 +1,4 @@
-window.onload=bootstrap;
+window.onload=bootstrap_user;
 
 /**
  * definicao dos tamanhos dos campos
@@ -8,7 +8,7 @@ var passwordLenght = 6;
 
 
 
-function bootstrap()
+function bootstrap_user()
 {
 	/**
 	 * aqui vao os nomes das funções habilitadas
