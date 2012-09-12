@@ -3,7 +3,7 @@
 	{
 
 		const URL_RETURN = '/index/index';
-		const AUTH_FILE = 'Default';
+		const AUTH_FILE = 'Pacman';
 
 		/**
 		 * instancia de System_Auth
@@ -28,7 +28,6 @@
 			$this->_authenticator->setExceptions(array());
 
 			$this->_auth = System_Auth::Factory(AUTH_FILE,null);
-
 		}
 		
 		/**
@@ -39,8 +38,10 @@
 
 		public function loginajaxAction() 
 		{	
+
 			$this->_helper->layout()->disableLayout();
 			$this->_helper->viewRenderer->setNoRender(true);
+
 			$authenticated = $this->_auth->authenticate($this->ajax['login'],
 													$this->ajax['password']);
 

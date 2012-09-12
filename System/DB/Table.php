@@ -33,8 +33,6 @@
 
 		public function create($array)
 		{	
-			$this->_setQuery(array('query'=>'CREATE','data'=>$array));
-
 
 			$array = $this->atribution($array);
 			//dg($array);
@@ -69,6 +67,7 @@
 			 */
 			$offset = $params['limit']['offset'];
 
+
 			$where = $this->atribution($where);
 
 			foreach($where as $elementId => $element) {
@@ -76,7 +75,7 @@
 				$where[$elementId.' = ?'] = $element;
 				unset($where[$elementId]);
 			}
-			//sw($params);
+
 			$result= $this->fetchAll($where,$order,$count,$offset);
 			/**
 			 * guarda o objeto rowset na variavel da classse
@@ -199,7 +198,7 @@
 		 * @return [type] [description]
 		 */
 		public function getSchema()
-		{	
+		{		
 			$sql = "DESCRIBE `".$this->_name."`";
 			$result = $this->_db->fetchAll($sql);
 
@@ -227,6 +226,7 @@
 		public function atribution($array)
 		{	
 			$tableSchema = $this->getSchema();
+
 			foreach($array as $columnName => $columnValue)
 			{
 				$hasColumn = false;
