@@ -25,7 +25,7 @@
 		 * @param  [type] $date [description]
 		 * @return [type]       [description]
 		 */
-		function convDate($date,$mask="Y-m-d") 
+		public function convDate($date,$mask="Y-m-d") 
 		{
 
 			if($mask= "Y-m-d") {
@@ -46,14 +46,14 @@
 
 		}
 
-		/**
+			/**
 		 * transforma uma data no formato d/m/Y para o formato y-m-d
 		 * @param  [type] $date [description]
 		 * @return [type]       [description]
 		 */
-		function toMysql($date) 
+		public static function toMysql($date,$separator="-") 
 		{
-			$tmp =  array_reverse(explode("/", substr($date, 0, 10)));
+			$tmp =  array_reverse(explode($separator,$date));
 
 			if(strlen($tmp[0])<4) {
 				$datePrefix = 20;
@@ -64,13 +64,12 @@
 			return implode('-',$tmp);
 		}
 
-
 		/**
 		 * transforma uma data no formato y-m-d para o formato d/m/Y
 		 * @param  [type] $date [description]
 		 * @return [type]       [description]
 		 */
-		function fromMysql($date) 
+		public static function fromMysql($date) 
 		{
 			$tmp =  array_reverse(explode("-", substr($date, 0, 10)));
 
@@ -93,7 +92,7 @@
 		 * @param  string $format="Y-m-d" [description]
 		 * @return [type]                 [description]
 		 */
-		function betweenDates($date1,$date2,$dateToTest,$format="Y-m-d")
+		public function betweenDates($date1,$date2,$dateToTest,$format="Y-m-d")
 		{
 
 			$date1 =strtotime( $date1);

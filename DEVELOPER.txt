@@ -1,0 +1,21 @@
+Arquivo de padronização para o desenvolvedor System_Framework
+
+
+PHP
+
+funções de controladores que usam ajax
+	funcaoAjax();
+
+variaves que serão utilizadas somente pela própria classe
+	 $_variable;
+
+
+
+JAVASCRIPT
+
+
+
+JSON
+Padroes de retornos de json: status{1/0} , result {url:www.google.com}
+
+

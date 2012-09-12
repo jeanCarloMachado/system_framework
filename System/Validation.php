@@ -2,7 +2,7 @@
 	
 
 	/** faz validação dos elementos */
-	class System_Validation
+	class System_Validation implements System_Validation_Interface
 	{
 		/**
 		 * array com os elementos a serem validados 
@@ -149,6 +149,17 @@
 		}
 
 
+		/**
+		 * valida um campo de entrada
+		 * @param  [type] $str [description]
+		 * @return [type]      [description]
+		 */
+		public static function purge($str) 
+		{
+			return  mysql_real_escape_string($str);
+		}
+
+
 		/** ---------------getters & setters----------------*/
 				
 		public function getElements()
@@ -205,7 +216,8 @@
 		{
 		    $this->_iniElements = $iniElements;
 		}
-		
+			
+	
 
 		/** ---------------FIM getters & setters----------------*/
 
