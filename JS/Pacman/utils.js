@@ -1,6 +1,4 @@
-/**
- * arquivo de funçoes default do sistema
- */
+
 
 /**
  * manda todos os filhos de algum elemento
@@ -12,11 +10,10 @@ function sendChild(address,fatherElement)
 	result = '';
 
 	childData = {};
-	childArr = fatherElement.children();
+	childArr = fatherElement.find('input');
+	childArr = $.merge(childArr,fatherElement.find('select'));
 	childArr.each(function() {
-		if($(this).is('input')) {	
-			childData[$(this).attr('name')] = $(this).val();
-		}
+		childData[$(this).attr('name')] = $(this).val();
 	});
 	
 	$.ajax({
@@ -31,3 +28,18 @@ function sendChild(address,fatherElement)
 	});
     return result;
 }
+
+/**
+ * função de voltar no historico
+ * funciona com algum elemento com a classe back
+ * @return {[type]} [description]
+ */
+function back_pacman()
+{
+    $('.back').click(function(){
+        history.back(-1);
+    })
+}
+
+
+

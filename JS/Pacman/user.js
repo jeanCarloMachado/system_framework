@@ -14,7 +14,8 @@ function bootstrap_user()
 	 * aqui vao os nomes das funções habilitadas
 	 */
 	
-	loginManagement()
+	loginManagement();
+
 }
 
 /** 
@@ -23,12 +24,20 @@ function bootstrap_user()
  */
 function loginManagement()
 {	
-	
+	$('input[name=login]').blur(function() {
+		loginValidation();
+	});
+
+	$('input[name=password]').blur(function() {
+		passwordValidation();
+	});
+
+
 	/**
 	 * quando clicado em submeter valida-se os dois campos
 	 * @return {[type]} [description]
 	 */
-	$('#default_loginButton').click(function(){
+	$('input[name=default_loginButton]').click(function(){
 		if(loginValidation() && passwordValidation) {
 			loginSubmit();
 		}
