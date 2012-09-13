@@ -200,7 +200,7 @@
 		public function getSchema()
 		{		
 			$sql = "DESCRIBE `".$this->_name."`";
-			$result = $this->_db->fetchAll($sql);
+			$result = $this->run($sql);
 
 			return $result;
 		}
