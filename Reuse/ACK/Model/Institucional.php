@@ -9,9 +9,14 @@
 
 		public function getTree($array,$params=null,$columns=null) {
 
-			//$array['visivel'] = 1;
+			$array['visivel'] = 1;
+			$array['status'] = 1;
 
-			return parent::getTree($array,$params,$columns);
+			
+			$result = parent::getTree($array,$params,$columns);
+
+
+			return $result;
 		}
 
 		public function get($array,$params=null,$columns=null)

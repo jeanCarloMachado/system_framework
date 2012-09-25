@@ -19,3 +19,38 @@ JSON
 Padroes de retornos de json: status{1/0} , result {url:www.google.com}
 
 
+tabelas, varivaveis funções , models em ingles, 
+nomes de controladores, visoes em portugues arquivos_de_visoes_assim
+
+nao colocar () em instancias de classes:
+$noticias = new Noticias;
+
+aspas duplas em strings & aspas simples dentro de chaves de arrays
+
+getters e setter abaixo dos atributos construtor e demais abaixo deles
+usar as variaves com getters e setters	
+funcoes: minhaFuncao()
+artributos: $meuAtributo;
+colunnas db: coluna_valor_1
+
+/**
+*todos os atributos da classe devem vir nesse padrao
+* para acessar de fora  deve-se utilizar métodos
+*/
+$_variavelDaClasse;
+
+nomes de arquivos em 	CamelCase.php
+USAR VARIAVES ESTÁTICAS EM CLASSES
+
+html estático dentro da pasta layout
+
+/**
+*comentários
+*/
+(devem comentar os cabeçalhos dos métodos e não seu uso
+ao uso os comentários devem ser mais genéricos) 
+
+nomes dos modelos em ingles
+
+
+

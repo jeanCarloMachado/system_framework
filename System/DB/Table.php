@@ -119,14 +119,22 @@
   			return $result;
   		}	
 
-
-
+  		/**
+  		 * se o elemento não existe para se dar o update ele é criado
+  		 * @param  [type] $set    [description]
+  		 * @param  [type] $where  [description]
+  		 * @param  [type] $params [description]
+  		 * @return [type]         [description]
+  		 */
 		public function updateOrCreate($set,$where,$params=null)
 		{	
-			$result = $this->update($set,$where);
 
-			if(!$result) {
+			$resultGet = $this->get($where);
+
+			if(empty($resultGet)) {
 				$result = $this->create($set);
+			} else {
+				$result = $this->update($set,$where);
 			}
 
 			return $result;
