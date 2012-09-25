@@ -54,3 +54,7 @@ nomes dos modelos em ingles
 
 
 
+HTML
+
+os id's dos elementos devem seguir a seginte padronizacao:
+controler_view_nome;

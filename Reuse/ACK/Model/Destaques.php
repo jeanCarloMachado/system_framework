@@ -46,13 +46,19 @@
         public function getTree($array,$params=null,$columns=null)
         {
 
+            /**
+             * adiciona visivel e status na query
+             */
+            $array['visivel'] = '1';
+            $array['status'] = 1;
+
             $result = $this->get($array,$params);
             $fotos = new Reuse_ACK_Model_Fotos();
 
 
             foreach($result as $elementId => $element) {
 
-                $result[$elementId]['fotos'] = $fotos->get(array('modulo'=>$this->_module,'relacao_id'=>$element['id']));
+                $result[$elementId]['fotos'] = $fotos->get(array('modulo'=>$this->_module,'relacao_id'=>$element['id'],'status'=>1,'visivel_'.System_Language::current() =>'1'));
             }   
 
             return $result; 

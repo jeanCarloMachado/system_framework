@@ -29,7 +29,7 @@
 			//PEGA AS FOTOS
 			$tabelasFilhas[0]['name']  = 'fotos';
 			$tabelasFilhas[0]['relationCollumn'][0] = 'relacao_id';
-			$tabelasFilhas[0]['whereClausule'] = array('modulo'=>$module);
+			$tabelasFilhas[0]['whereClausule'] = array('modulo'=>$module,'status'=>1,'visivel_'.System_Language::current() =>'1');
 			
 		
 			//PEGA OS VIDEOS
@@ -55,7 +55,7 @@
 			 */
 			foreach($result as $categoriaId => $categoria)
 			{	
-				$result[$categoriaId]['institucional'] = $institucional->getTree(array('categoria'=>$categoria['id'],'visivel'=>'1'),null,$module);
+				$result[$categoriaId]['institucional'] = $institucional->getTree(array('categoria'=>$categoria['id'],'visivel'=>'1','modulo'=>$module),null,$module);
 			}
 			return $result;
 		}

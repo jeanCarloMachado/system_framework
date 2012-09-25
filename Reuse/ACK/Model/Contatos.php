@@ -7,14 +7,14 @@
 	{
 		protected $_name = 'contatos';
 
-		public function create(array $data) {
+		public function create($array) {
 			
-			if(isset($data['nome'])) {
-				$data['remetente'] = $data['nome'];
-				unset($data['nome']);
+			if(isset($array['nome'])) {
+				$array['remetente'] = $array['nome'];
+				unset($array['nome']);
 			}
 
-			parent::create($data);			
+			return parent::create($array);			
 		}
 
 	}
