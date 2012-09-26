@@ -45,16 +45,19 @@
 		public function load($class,$methodName,$parameters=null)
 		{
 
-
-			$this->_authenticator->testAuthentication($methodName);
-			
-
 			/**
-			 * executa o pre-dispatch
+			 * executa o pre-dispatch com as config. de autenticação
 			 */
 			$this->preDispatch();
 
-
+			/**
+			 * testa a autenticação
+			 */
+			$this->_authenticator->testAuthentication($methodName);
+			
+			/**
+			 * chama o médodo responsável
+			 */
 			$class->$methodName($parameters);
 
 		}

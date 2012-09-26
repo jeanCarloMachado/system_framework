@@ -50,6 +50,7 @@
 
         public function __construct() 
         {   
+
             /**
              * ATIVA O AUTOLOADER
              */
@@ -80,11 +81,12 @@
                 $controllerName =  $front->getControllerName();
                 $controllerName = $controllerName.$this->_controllerSuffix;
                 $controller = new $controllerName;
+                echo $front->getViewName();
 
-                if (method_exists($controller,$front->getViewName())) {
+                if (method_exists($controller,$front->getViewName()) || method_exists($controller,$front->getViewName()."Action")) {
                    $controller->load($controller,$front->getViewName(),$front->getUrlParameters());
                 } else {
-                    echo 'errro';die;
+                    echo 'erro';die;
                     $errno = "404";
                     $erro = "Ops, não encotramos a página que você procurava.";
                     $dadosErro["erro"]=array("titulo"=>"ERRO ".$errno,"conteudo"=>$erro,"linkACK"=>false);
