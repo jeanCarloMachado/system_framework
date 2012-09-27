@@ -1,16 +1,21 @@
 <?php
+	/**
+	 * interface para classes de banco de dados
+	 */
 	interface System_DB_Table_Interface 
 	{
-		function create($array);
+		function create(array $where);
 
-		function get($array,$params=null,$columns=null);
+		function get(array $where,$params=null,$columns=null);
 
-		function updateOrCreate($set,$where,$params=null);
+		function updateOrCreate(array $set,array $where,$params=null);
 
 		function delete($where);
 
 		function update(array $set,$where);
 
-		function query($query);
+		function query(string $sql);
+
+		function getTree(array $where,$params=null,$columns=null);
 	}
 ?>

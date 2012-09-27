@@ -1,5 +1,5 @@
 <?php
-	class Reuse_Pacman_MVC_Controllers_UserController extends Reuse_MVC_Controller_UserController
+	class Reuse_Pacman_MVC_Controllers_UserController extends Reuse_Base_Controller_UserController
 	{
 		/**
 		 * url de retorno 

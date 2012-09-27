@@ -1,18 +1,3 @@
-software version 0.3.2
-nomenclatura correta dos arquivos de system
-
-software version 0.3.3
-
-arquivos de soap estao de volta
-
-software version 0.3.5
-novo System_DB_Table com query's baseadas em zend framework
-
-software version 0.3.6
-melhorias no application
-
-software version 0.4
-melhorias genéricas (adicionado ao github)
 
 
 MANUAL:

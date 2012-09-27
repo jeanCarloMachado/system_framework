@@ -103,29 +103,30 @@
 		public function testAuthentication($methodName)
 		{	
 
-			$this->_authenticator = System_Auth::Factory('Video',null);
+			if($this->authenticationIsEnabled()) {
 
-			$auth = $this->getAuthenticator();	
+				$auth = $this->getAuthenticator();	
 
+				if((!$auth->isAuth()))
+				{		/**
+					 * testa se o método está no array
+					 */
+					$this->_authenticator = System_Auth::Factory('Video',null);
+					
 
-
-			if($this->authenticationIsEnabled() && (!$auth->isAuth()))
-			{		/**
-				 * testa se o método está no array
-				 */
-						
-				if(!in_array($methodName,$this->getExceptions()))
-				{
-					$_errorPath = $this->getErrorPath();
-					if(!isset($_errorPath))
+					if(!in_array($methodName,$this->getExceptions()))
 					{
-						throw new Exception('Método não autenticado e nenhum caminho passado para error.');
+						$_errorPath = $this->getErrorPath();
+						if(!isset($_errorPath))
+						{
+							throw new Exception('Método não autenticado e nenhum caminho passado para error.');
+						}
+						header("Location: $_errorPath");
+						die;
 					}
-					header("Location: $_errorPath");
-					die;
-				}
 
-				return;
+					return;
+				}
 			}
 		}
 

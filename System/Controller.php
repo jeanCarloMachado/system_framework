@@ -56,9 +56,16 @@
 			$this->_authenticator->testAuthentication($methodName);
 			
 			/**
-			 * chama o médodo responsável
+			 * chama o médodo responsável se não conseguir chama 
+			 * com o sufixo Action (PADRAO ZEND)
 			 */
-			$class->$methodName($parameters);
+			try {
+				$class->$methodName($parameters);
+			} catch (Exception $e) {
+
+				$methodName.= "Action";
+				$class->$methodName($parameters);
+			} 
 
 		}
 

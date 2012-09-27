@@ -1,5 +1,5 @@
 <?php 
-        	require_once 'Log/Interface.php';
+    	require_once 'System/Log/Interface.php';
 
 	class System_Log implements System_Log_Interface {
 

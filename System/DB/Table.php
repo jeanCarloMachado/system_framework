@@ -31,7 +31,7 @@
 			$this->run("SET NAMES 'utf8'");
 		}
 
-		public function create($array)
+		public function create(array $where)
 		{	
 
 			$array = $this->atribution($array);
@@ -49,7 +49,7 @@
 		 * @param  [type] $params [description]
 		 * @return [type]         [description]
 		 */
-		public function get($array,$params=null,$columns=null)
+		public function get(array $where,$params=null,$columns=null)
 		{
 			$this->_setQuery(array('query'=>'GET','data'=>$array));
 
@@ -89,7 +89,7 @@
   		}
 
 
-  		public function getTree($array,$params=null,$columns=null) 
+  		public function getTree(array $array,$params=null,$columns=null) 
   		{
 
   			$this->_setQuery(array('query'=>'GET TREE','data'=>$array));
@@ -126,7 +126,7 @@
   		 * @param  [type] $params [description]
   		 * @return [type]         [description]
   		 */
-		public function updateOrCreate($set,$where,$params=null)
+		public function updateOrCreate(array $set,array $where,$params=null)
 		{	
 
 			$resultGet = $this->get($where);
@@ -265,7 +265,7 @@
 		 * @param  [type] $query [description]
 		 * @return [type]        [description]
 		 */
-		public function query($query)
+		public function query(string $sql)
 		{
 			$stmt = $this->_db->query($query);
 			return $stmt->fetchAll();
