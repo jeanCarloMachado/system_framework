@@ -1,0 +1,22 @@
+<?php 
+	class System_Object_Date_Month
+	{
+		private $_val;
+
+		public function __construct($val)
+		{
+			$this->setVal($val);
+		}
+
+		public function toString()
+		{
+		    return $this->_val;
+		}
+		
+		public function setVal($val)
+		{
+		    $this->_val = $val;
+		}
+		
+	}
+?>

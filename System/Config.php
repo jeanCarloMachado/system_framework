@@ -1,7 +1,7 @@
 <?php
-	require_once "System/DesignPattern/Polimorphysm/Interface.php";
+	require_once "System/DesignPattern/Polymorphism/Interface.php";
 
-	class System_Config implements System_DesignPattern_Polimorphysm_Interface,System_Config_Interface
+	class System_Config implements System_DesignPattern_Polymorphism_Interface,System_Config_Interface
 	{
 		/**
 		 * é passado argumentos a classe polimorfica

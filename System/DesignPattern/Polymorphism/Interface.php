@@ -1,7 +1,8 @@
 <?php
-	require_once "System/DesignPattern/Polymorphism/Interface.php";
-
-	class System_Media implements System_DesignPattern_Polymorphism_Interface
+	/**
+	 * interface para objetos polimórficos
+	 */
+	interface System_DesignPattern_Polymorphism_Interface
 	{
 		/**
 		 * é passado argumentos a classe polimorfica
@@ -10,9 +11,6 @@
 		 * @param  array  $params [description]
 		 * @return [type]         [description]
 		 */
-		public static function getInstance(array $params)
-		{
-			
-		}
+		public static function getInstance($params);
 	}
 ?>

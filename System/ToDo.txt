@@ -1,2 +1,0 @@
-Melhorias Jean Carlo Machado
-Implementar consultas no estilo $this->get(array("AND parametro ~=" => $valor));

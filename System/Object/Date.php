@@ -1,52 +1,66 @@
 <?php
+	require_once 'System/Object/Date/Interface.php';
+
 	/**
 	 * objeto do tipo data
 	 */
-	class System_Object_Date
+	class System_Object_Date implements System_Object_Date_Interface
 	{
 		/**
-		 * datetime
-		 * @var [type]
+		 * data 
+		 * @var string
 		 */
-		protected $_dateTime;
-		/**
-		 * data
-		 * @var [type]
-		 */
-		protected $_date;
-		/**
-		 * hora
-		 * @var [type]
-		 */
-		protected $_time;
+		protected $_val;
 
-		/** 
-		 * FUNÇÃO DEPRECATED UTILIZAR O toMYSQL/fromMysql
-		 * @param  [type] $date [description]
-		 * @return [type]       [description]
+		/**
+		 * description
+		 * @var System_Object_Date_Day
 		 */
-		public function convDate($date,$mask="Y-m-d") 
+		protected $_day;
+
+		/**
+		 * description
+		 * @var System_Object_Date_Month
+		 */
+		protected $_month;
+
+		/**
+		 * description
+		 * @var System_Object_Date_Year
+		 */
+		protected $_year;
+
+
+
+		/**
+		 * quebra um datetime e retorna o que o usuário pedir
+		 * e retorna um novo objeto contendo essas informações
+		 * (padrão de projeto object values)
+		 * @param  [type] $date string com a data
+		 * @return [type]           [description]
+		 */
+		public function __construct($params=null)
 		{
+			
+			/**
+			 * forma um array com data e hora
+			 * @var [type]
+			 */
+			$array = explode(' ',$dateTime);
+			
+			/**
+			 * seta a data 
+			 */
+			$obj->setDate($array[0]);
+			/**
+			 * seta o tempo
+			 */
+			$obj->setTime($array[1]);
 
-			if($mask= "Y-m-d") {
-
-				$tmp =  array_reverse(explode("/", substr($date, 0, 10)));
-
-				if(strlen($tmp[0])<4) {
-					$datePrefix = 20;
-					$godDate = $datePrefix.$tmp[0];
-					$tmp[0] = $godDate;
-				}
-
-				return implode('-',$tmp);
-
-			} else {
-				
-			}
-
+			return $obj;
 		}
 
-			/**
+		/**
 		 * transforma uma data no formato d/m/Y para o formato y-m-d
 		 * @param  [type] $date [description]
 		 * @return [type]       [description]
@@ -63,6 +77,7 @@
 
 			return implode('-',$tmp);
 		}
+
 
 		/**
 		 * transforma uma data no formato y-m-d para o formato d/m/Y
@@ -107,70 +122,15 @@
 
 		}
 
-		/**
-		 * quebra um datetime e retorna o que o usuário pedir
-		 * e retorna um novo objeto contendo essas informações
-		 * (padrão de projeto object values)
-		 * @param  [type] $dateTime [description]
-		 * @return [type]           [description]
-		 */
-		public static function dismemberDateTime($dateTime)
+		public function toString()
 		{
-			/**
-			 * cria um novo objeto do tipo date
-			 * @var System_Object_Date
-			 */
-			$obj  = new System_Object_Date;
-			$obj->setDateTime($dateTime);
-
-			/**
-			 * forma um array com data e hora
-			 * @var [type]
-			 */
-			$array = explode(' ',$dateTime);
-			
-			/**
-			 * seta a data 
-			 */
-			$obj->setDate($array[0]);
-			/**
-			 * seta o tempo
-			 */
-			$obj->setTime($array[1]);
-
-			return $obj;
+		    return $this->_val;
+		}
+		
+		public function setVal($val)
+		{
+		    $this->_val = $val;
 		}
 
-		public function getDateTime()
-		{
-		    return $this->_dateTime;
-		}
-		
-		public function setDateTime($dateTime)
-		{
-		    $this->_dateTime = $dateTime;
-		}
-		
-		public function getDate()
-		{
-		    return $this->_date;
-		}
-		
-		public function setDate($date)
-		{
-		    $this->_date = $date;
-		}
-
-		public function getTime()
-		{
-		    return $this->_time;
-		}
-		
-		public function setTime($time)
-		{
-		    $this->_time = $time;
-		}
-		
-		
 	}
 ?>
