@@ -8,7 +8,7 @@
 			$this->setVal($val);
 		}
 
-		public function toString()
+		public function getVal()
 		{
 		    return $this->_val;
 		}
@@ -16,7 +16,6 @@
 		public function setVal($val)
 		{
 		    $this->_val = $val;
-		}
-		
+		}		
 	}
 ?>

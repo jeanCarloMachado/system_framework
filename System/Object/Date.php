@@ -30,34 +30,19 @@
 		 */
 		protected $_year;
 
+		private static $_separators = array('-','/');
 
-
-		/**
-		 * quebra um datetime e retorna o que o usuário pedir
-		 * e retorna um novo objeto contendo essas informações
-		 * (padrão de projeto object values)
-		 * @param  [type] $date string com a data
-		 * @return [type]           [description]
-		 */
-		public function __construct($params=null)
+		public function __construct($strDate,$mask = 'Y-m-d')
 		{
-			
-			/**
-			 * forma um array com data e hora
-			 * @var [type]
-			 */
-			$array = explode(' ',$dateTime);
-			
-			/**
-			 * seta a data 
-			 */
-			$obj->setDate($array[0]);
-			/**
-			 * seta o tempo
-			 */
-			$obj->setTime($array[1]);
+			do {	
+				$mask = explode(next(self::$_separators),$mask);
+				$separator = current(self::$_separators);
+			} while (current(self::$_separators) && (count($mask) <= 1));
 
-			return $obj;
+			dg($separator);
+
+			
+
 		}
 
 		/**
@@ -122,7 +107,7 @@
 
 		}
 
-		public function toString()
+		public function getVal()
 		{
 		    return $this->_val;
 		}
@@ -131,6 +116,6 @@
 		{
 		    $this->_val = $val;
 		}
-
+		
 	}
 ?>
