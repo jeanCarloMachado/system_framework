@@ -16,32 +16,72 @@
 		 * description
 		 * @var System_Object_Date_Day
 		 */
-		protected $_day;
+		public $day;
 
 		/**
 		 * description
 		 * @var System_Object_Date_Month
 		 */
-		protected $_month;
+		public $month;
 
 		/**
 		 * description
 		 * @var System_Object_Date_Year
 		 */
-		protected $_year;
+		public $year;
 
-		private static $_separators = array('-','/');
+		private static $_separators = array('-','/','.');
 
 		public function __construct($strDate,$mask = 'Y-m-d')
 		{
-			do {	
-				$mask = explode(next(self::$_separators),$mask);
-				$separator = current(self::$_separators);
-			} while (current(self::$_separators) && (count($mask) <= 1));
-
-			dg($separator);
-
 			
+			/**
+			 * testa se existe um separador compatível
+			 * caso sim o usa
+			 */
+			reset(self::$_separators);
+			while (current(self::$_separators)) {	
+				
+				$arrMask = explode(current(self::$_separators),$mask);
+
+				if (count($arrMask) > 1) {
+					$separator = current(self::$_separators);
+					break;
+				}
+
+				next(self::$_separators);
+			} 
+
+			/**
+			 * para cada elemento da mascara 
+			 * coloca o elemento do array no lugar correspondente
+			 * @var [type]
+			 */
+			foreach($arrMask as $maskElementId => $maskElement) {
+
+				$dateElement = explode($separator,$strDate);
+				$dateElement = $dateElement[$maskElementId];
+
+
+				switch($maskElement) {
+					case 'd':
+						$this->day = new System_Object_Date_Day;
+						$this->day->setVal($dateElement);
+					break;
+					case 'm':
+						$this->month = new System_Object_Date_Month;
+						$this->month->setVal($dateElement);
+					break;
+					case 'y':
+						$this->year = new System_Object_Date_Year;
+						$this->year->setVal($dateElement);
+					break;
+					case 'Y':
+						$this->year = new System_Object_Date_Year;
+						$this->year->setVal($dateElement);
+					break;
+				}
+			}
 
 		}
 
