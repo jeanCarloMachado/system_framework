@@ -10,10 +10,25 @@
 	 */
 	interface System_DesignPattern_Observer_Interface 
 	{
-		function attach($obj);
+		/**
+		 * adiciona um objeto aos observadores
+		 * @param  [type] $obj [description]
+		 * @return [type]      [description]
+		 */
+		function attach($objName);
 
-		function detach($obj);
+		/**
+		 * remove um objeto pela chave
+		 * @param  [type] $obj [description]
+		 * @return [type]      [description]
+		 */
+		function detach($objName);
 
+		/**
+		 * notifica os observadores
+		 * @param  [type] $message [description]
+		 * @return [type]          [description]
+		 */
 		function notify($message);
 	}
 ?>

@@ -3,7 +3,7 @@
 	/**
 	 * essa classe contém as query's básicas para utilização em modelos
 	 */
-	abstract class System_DB_Table extends Zend_Db_Table_Abstract implements System_DB_Table_Interface
+	abstract class System_DB_Table extends Zend_Db_Table_Abstract implements System_DB_Table_Interface,System_DesignPattern_Observer_Interface 
 	{
 		/**
 		 * nome da tabela no banco de dados
@@ -355,6 +355,44 @@
 		}
 		
 		
+		/**
+		 * adiciona um objeto aos observadores
+		 * @param  [type] $obj [description]
+		 * @return [type]      [description]
+		 */
+		public function attach($objName)
+		{
+			$this->_observers[] = $objName;
+		}
+
+		/**
+		 * remove um objeto pela chave
+		 * @param  [type] $obj [description]
+		 * @return [type]      [description]
+		 */
+		public function detach($objName)
+		{
+			foreach($this->_observers as $observerId => $observer) {
+				if($objName == $observer) {
+					unset($this->_observers[$observerId]);
+					return true;
+				}
+			}
+			return false;
+		}
+
+		/**
+		 * notifica os observadores
+		 * @param  [type] $message [description]
+		 * @return [type]          [description]
+		 */
+		public function notify($message)
+		{
+			foreach($this->_observers as $observerName) {
+				$observer = new $observerName;
+				$observer->listen($message);
+			}
+		}
 		
 	}
 ?>
