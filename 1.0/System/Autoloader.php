@@ -1,29 +1,31 @@
 <?php
-      require_once 'System/Config/Configurable/Interface.php';
-      require_once 'System/Config.php';
-      require_once 'System/Autoloader/Loader/CurrDir.php';
-      require_once 'System/Autoloader/Loader/Library.php';
 
-      class System_Autoloader implements System_Config_Configurable_Interface
+      class System_Autoloader 
       {
 
             private static $_loaders = array('Library',
                                              'CurrDir');
-
             private static $_version = null;
 
+            private static $_versionDefault = null;
 
+            private static $_libsPath = 'includes/library';
             /**
              * prefixos dos loaders
              */
             const LOADERS_PREFIX = "System_Autoloader_Loader_";
 
-            public function __construct() 
+            public function __construct($versionDefault,$pathLibs=null) 
             {     
                   /**
                    * seta a versão da library a ser carregada
                    */
-                  self::setVersion($this->getLibraryVersionDefault());
+                  $this->setVersion($versionDefault);
+                  System_Autoloader::$_versionDefault = $versionDefault;
+
+                  if($pathLibs) {
+                        $this->setLibsPath($pathLibs);
+                  }
 
                   /**
                    * inclui os arquivos default
@@ -35,26 +37,7 @@
                    */
                   spl_autoload_register(array($this, 'load'));
             }
-
-
-            /**
-             * troca de verao da biblioteca em utilização
-             */
-            public function setVersion(str $version)
-            {
-                  self::$_version = $version;
-
-                  spl_autoload_register(array($this, 'load'));
-            } 
-
-            /**
-             * troca de verao da biblioteca em utilização
-             */
-            public static function getVersion()
-            {
-                  return self::$_version;
-            }
-
+ 
             /**
              * função do loader
              * @param  [type] $className [description]
@@ -62,10 +45,13 @@
              */
             private function load($className) 
             {     
-                  $params['librarysPath'] = $this->getLibrarysPath();
-                  $params['currLibrary'] = self::$_version;
+                  $params['librarysPath'] = $this->getLibsPath();
+                  $params['currLibrary'] = $this->getVersion();
 
                   foreach(self::$_loaders as $loader) {
+
+                        require_once 'System/Autoloader/Loader/'.$loader.'.php';
+
 
                         $objName = self::LOADERS_PREFIX.$loader;
                         $obj =  new $objName;
@@ -78,32 +64,62 @@
                   }
             }
 
-            //----------------MÉTODOS AUXILIARES----------------
-            /**
-             * retorna o path da biblioteca padrão
-             * @return [type] [description]
-             */
-            public function getLibraryVersionDefault() 
-            {
-                  $config = $this->getConfigGlobal();
-
-                  $version = $config->systemVersion->default;
-
-                  return $version;
-            }
-
             /**
              * pega o caminho das bibliotecas
              * @return [type] [description]
              */
-            public function getLibrarysPath() 
+            public function getLibsPath() 
             {
-                  $config = $this->getConfigGlobal();
-
-                  $path = $config->librarysPath;
-
-                  return $path;
+                  return self::$_libsPath;
             }     
+
+
+            public function setLibsPath($libsPath) 
+            {
+                self::$_libsPath = $libsPath;
+            }     
+
+            /**
+             * troca de verao da biblioteca em utilização
+             */
+            public function getVersion()
+            {
+                  return self::$_version;
+            }     
+
+            /**
+             * troca de verao da biblioteca em utilização
+             */
+            public static function getVersionStatic()
+            {
+                  return self::$_version;
+            }  
+
+            /**
+             * troca de verao da biblioteca em utilização
+             */
+            public static function setVersion($version)
+            {
+                  if($version == '0') {
+                        /**
+                         * seta para a bibliotaca solta
+                         * @var string
+                         */
+                        self::$_version = '';
+                  } else if ($version == 'default') {
+                        /**
+                         * retoma a versao default
+                         * @var [type]
+                         */
+                        self::$_version = self::$_versionDefault;                        
+                  } else {
+                        /**
+                         * no último caso seta o que foi passado
+                         * @var [type]
+                         */
+                        self::$_version = $version;
+                  }
+            }
 
             /**
              * inclui os arquivos padroes
@@ -113,30 +129,5 @@
             {           
                   include_once 'utils.php';
             }
-
-            /**
-             * retorna a configuração da classe 
-             * @param  [type] $config [description]
-             * @return [type]         [description]
-             */
-            public function getConfig() 
-            {
-                  $config = System_Config::get();
-                  
-                  return $config->system->autoloader;
-            }     
-            /**
-             * retorna as configurações globais
-             * @param  [type] $config [description]
-             * @return [type]         [description]
-             */
-            public function getConfigGlobal() 
-            {
-                  $config = System_Config::get();
-                  
-                  return $config->global;
-            }
-            //----------------FIM MÉTODOS AUXILIARES----------------
-
       }
 ?>

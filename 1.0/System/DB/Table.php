@@ -1,5 +1,4 @@
 <?php
-
 	/**
 	 * essa classe contém as query's básicas para utilização em modelos
 	 */
@@ -36,6 +35,7 @@
 
 			$set = $this->atribution($set);
 
+
   			$this->insert($set);
 
   			$result = $this->getLastId();
@@ -64,6 +64,7 @@
 
 
 			$where = $this->atribution($where);
+
 
 			foreach($where as $elementId => $element) {
 
@@ -253,12 +254,10 @@
 					 * o remove da query
 					 * @var [type]
 					 */
-					$columnName = $this->hasComparationChar($columnName);
-					$columnName = $columnName[0];
+					$columnName = ($this->hasComparationChar($columnName)) ? $columnName[0] : $columnName;
 
 					if($valuesSchema['Field'] == $columnName) 	{
 						$hasColumn = true;
-
 						break;
 					}
 				}
@@ -312,36 +311,7 @@
 		    return $this->_query;
 		}
 
-
-		/**
-		 * ---------------------------------------------------------------------------------
-		 * FUNÇOES DE COMPATIBILIDADE (DEPRECATED)
-		 */
-		public function ioCreate($array)
-		{
-			return $this->create($array);
-		}
-
-		public function ioGet($array,$params=null)
-		{
-			return $this->get($array,$params=null,$columns=null);
-		}
-		
-		public function ioUpdateOrCreate($set,$where,$params=null)
-		{
-			return $this->updateOrCreate($set,$where,$params=null);
-		}
-
-		public function ioDelete($where)
-		{
-			return $this->delete($where);
-		}
-
-		public function ioUpdate($set,$where)
-		{
-			return $this->update($set,$where);
-		}
-
+	
 		public function getTableName()
 		{
 		    return $this->_name;
@@ -391,6 +361,8 @@
 				$observer->listen($message);
 			}
 		}
+
+		public function __destruct(){}
 		
 	}
 ?>

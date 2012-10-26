@@ -3,15 +3,29 @@
     class Reuse_ACK_View_helpers_Show_Meta implements System_Helper_Interface
     {
     	public static function run(array $params)
-    	{
+    	{  
+            /**
+             * se foram passados controller e id usa a busca externa
+             */
+            if(isset($params['controller']) && isset($params['id'])) {
 
-            $controller = (isset($params['controller'])) ? $params['controller'] : 'sistema';
-            $id = ($params['id']) ? $params['id'] : '1';
+                $controller = $params['controller'];
+                $id = $params['id'];
 
+                $meta = new Reuse_ACK_Model_Metatag;
+                $resultMeta = $meta->get(array('item'=>$id,'tabela'=>$controller));
+                $resultMeta = $resultMeta[0];
+            }  
 
-            $meta = new Reuse_ACK_Model_Metatag;
-            $resultMeta = $meta->get(array('item'=>$id,'tabela'=>$controller));
-            $resultMeta = $resultMeta[0];
+            /**
+             * se depois de todas as tentativas
+             * nenhuma metatag foi retornada, busca a default do sistema
+             */
+            if(empty($resultMeta)) {
+                $meta = new Reuse_ACK_Model_Metatag;
+                $resultMeta = $meta->get(array('item'=>'1','tabela'=>'sistema'));
+                $resultMeta = $resultMeta[0];
+            }
 
             /**
              * imprime os arquivos de metadados

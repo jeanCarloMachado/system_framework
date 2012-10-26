@@ -1,4 +1,5 @@
 <?php
+	
 
 	class Reuse_ACK_Model_Institutional extends System_DB_Table
 	{
@@ -21,9 +22,9 @@
 
 		public function get(array $where,$params=null,$columns=null)
 		{
-			$array['status'] = 1;
+			$where['status'] = 1;
 
-			return parent::get($array,$params,$columns);
+			return parent::get($where,$params,$columns);
 		}
 
 		public function count($where = null) {

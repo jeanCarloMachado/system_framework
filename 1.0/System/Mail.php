@@ -4,6 +4,7 @@
 		private $_destinatary;
 		private $_sender;
 
+
 		public static function send($vars,$subject,$file=null,$destinatary=null,$sender=null) 
 		{
 			$sm = new System_Mail; 
@@ -25,7 +26,9 @@
 			 * se não foi passado o caminho do arquivo
 			 * pega o default da aplicacao
 			 */
+
 			$file = ($file) ? $file : $config->layout->path;
+
 
 
 			//Informações sobre quebra de linha para o Header do E-mail
@@ -50,10 +53,19 @@
 		private static function loadMail($file,$vars = array()) 
 		{
 
-			extract($vars);
+			$config = System_Config::get();
+			$config =  $config->system->mail;
 			
 			ob_start(); // start buffer
-			require_once ($file);
+
+				/**
+				 * adiciona o cabeçalho
+				 */
+				require_once $config->layout->header;
+				require_once $file;
+				extract($vars);
+				require_once $config->layout->footer;
+
 			$content = ob_get_contents(); // assign buffer contents to variable
 			ob_end_clean(); // end buffer and remove buffer contents
 

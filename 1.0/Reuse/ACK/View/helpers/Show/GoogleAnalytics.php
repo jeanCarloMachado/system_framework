@@ -3,11 +3,20 @@
     class Reuse_ACK_View_helpers_Show_GoogleAnalytics implements System_Helper_Interface
     {
     	public static function run(array $params)
-    	{
-          $ga = $params['ga'];
-
-            if(!$googleAnalytic) {
-                $ga = self::defaultGA();
+    	{    
+            /**
+             * seta o ga passado
+             * @var [type]
+             */
+            $ga = $params['ga'];
+            
+            /**
+             * se o GA não foi setado pega o default do sistema
+             */
+            if(!$ga) {
+                $system = new Reuse_ACK_Model_System;
+                $result = $system->get($where);
+                $ga =  $result[0]['ga'];
             } 
                 /**
                  * estrutura do ga
@@ -26,16 +35,6 @@
                 </script>
             <?php
     	}
-
-      public static function defaultGA() 
-      {
-          $system = new Reuse_ACK_Model_System;
-          $result = $system->get();
-
-          return $result[0]['ga'];
-      }
-    
-
     }
 ?>
 

@@ -1,3 +1,6 @@
+version 1.0.1
+ajustes
+
 version 1.0
 controle de versões implementado, escopo de plugins e arquivos de configuração bem definidos
 

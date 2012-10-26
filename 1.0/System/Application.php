@@ -1,6 +1,5 @@
 <?php
     require_once 'System/Autoloader.php';
-    require_once 'System/Config.php';
 
     /**
      * CLASSE DA APLICAÇÃO (INICIA-SE OBJETOS, BOOTSTRAP, ETC)
@@ -48,8 +47,17 @@
          * @param [type] $enviromment o ambiente de trabalho
          * @param [type] $iniPath     [description]
          */
-        public function __construct($enviromment="development",$pathConfig="Reuse/Pacman/MVC/application.ini") 
+        public function __construct($enviromment = "development",
+                                    $pathConfig = "Reuse/Pacman/MVC/application.ini",
+                                    $versionDefault ="1.0",
+                                    $pathLibs = "includes/library/") 
         {   
+           
+            /**
+             * ativa o autoloader
+             */
+            $autoloader = new System_Autoloader($versionDefault,$pathLibs);  
+
             /**
              * array de configuração de config
              * @var array
@@ -58,17 +66,14 @@
             $paramsConfig['file'] = $pathConfig;
             $paramsConfig['env'] = $enviromment;
 
+
+            require_once 'System/Config.php';
             $config = System_Config::getInstance($paramsConfig); 
 
             /**
              * registra a configuração
              */
             System_Config::register($config);
-
-            /**
-             * ativa o autoloader
-             */
-            $autoloader = new System_Autoloader;  
 
             /**
              * executao o bootstrap default
@@ -141,7 +146,7 @@
                 }
             }
 
-            $url[0] = (!empty($url[0]) && strlen($url[0]) != 3) ? $url [0] : $url [0].'home';
+            $url[0] = (!empty($url[0]) && ($url[0]) != 'ack' ) ? $url [0] : $url [0].'home';
             $url[1] = (!empty($url[1])) ? $url[1] : 'index';
 
             /**
