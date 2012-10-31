@@ -22,6 +22,13 @@
 		 */
 		protected $_query;
 
+
+		/**
+		 * observadores
+		 * @var [type]
+		 */
+		protected $_observers;
+
 	
 		public function __construct() 
 		{
@@ -39,6 +46,13 @@
   			$this->insert($set);
 
   			$result = $this->getLastId();
+
+  			/**
+  			 * notifica o ocorrido
+  			 */
+  			$this->notify(array("action"=>"create","affected"=>$result));
+
+
   			return $result;
 		}
 
@@ -101,7 +115,7 @@
   		 * @param  [type]  $str [description]
   		 * @return boolean      [description]
   		 */
-  		private function hasComparationChar($str) 
+  		private function hasComparationChar ($str) 
   		{
   			$str = explode(' ',$str);
 
@@ -166,7 +180,13 @@
 				$where[$elementId.' = ?'] = $element;
 				unset($where[$elementId]);
 			}
-			parent::delete($where);
+			$result = parent::delete($where);
+
+
+			/**
+  			 * notifica o ocorrido
+  			 */
+  			$this->notify(array("action"=>"delete","affected"=>$result));
 		}
 
 		public function update(array $set,$where)
@@ -196,6 +216,11 @@
 			 * @var [type]
 			 */
 			$result = $this->get($cleanWhere,null,array('id'));
+
+			/**
+  			 * notifica o ocorrido
+  			 */
+  			$this->notify(array("action"=>"update","affected"=>$result));
 
 			return $result;
 		}
@@ -302,16 +327,16 @@
 		public function run($sql) 
 		{
 			$stmt = $this->_db->query($sql);
-			return $stmt->fetchAll();		
+			$result = $stmt->fetchAll();	
+
+			/**
+  			 * notifica o ocorrido
+  			 */
+  			$this->notify(array("action"=>"sql","affected"=>$result,"query"=>$sql));
+
+			return $result;	
 		}
 
-
-		public function getQuery()
-		{
-		    return $this->_query;
-		}
-
-	
 		public function getTableName()
 		{
 		    return $this->_name;
@@ -356,6 +381,9 @@
 		 */
 		public function notify($message)
 		{
+			if(empty($this->_observers))
+				return false;
+
 			foreach($this->_observers as $observerName) {
 				$observer = new $observerName;
 				$observer->listen($message);

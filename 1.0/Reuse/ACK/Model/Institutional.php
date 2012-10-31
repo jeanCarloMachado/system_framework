@@ -27,7 +27,8 @@
 			return parent::get($where,$params,$columns);
 		}
 
-		public function count($where = null) {
+		public function count($where = null) 
+		{
 			$where['status'] = 1;
 			//$where['visivel'] = 1;
 			return parent::count($where);

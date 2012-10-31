@@ -121,6 +121,11 @@
                   }
             }
 
+            public static function simpleTest() 
+            {     
+                  require_once sstream_resolve_include_path('simpletest/autorun.php');
+            }
+
             /**
              * inclui os arquivos padroes
              * @return [type] [description]

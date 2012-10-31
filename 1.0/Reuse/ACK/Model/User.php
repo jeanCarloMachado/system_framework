@@ -11,7 +11,7 @@
 		 * @param  [type] $array [description]
 		 * @return [type]        [description]
 		 */
-		public function create($array)
+		public function create (array $set)
 		{
 
 			if(!array_key_exists($this->_passwordColumn, $array)) {

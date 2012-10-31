@@ -11,15 +11,17 @@
 		 * @param  [type]  $params [description]
 		 * @return boolean         [description]
 		 */
-		public function hasFile(str $name,$params)
+		public function hasFile($name,$params)
 		{
-			 $path = $name;
-             $path.= '.php';
-              /**
-              * se não conseguiu incluir pelo nome completo
-              * procura nos diretórios do include path
-              */
-             return $path;   
+			$path = $name;
+			$path.= '.php';
+			/**
+			* se não conseguiu incluir pelo nome completo
+			* procura nos diretórios do include path
+			*/
+
+			$result = sstream_resolve_include_path($path);
+			return $result;
 		}
 	}
 ?>

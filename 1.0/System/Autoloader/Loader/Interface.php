@@ -9,6 +9,6 @@
 		 * @param  [type]  $params [description]
 		 * @return boolean         [description]
 		 */
-		public function hasFile(str $name,$params);
+		public function hasFile($name,$params);
 	}
 ?>

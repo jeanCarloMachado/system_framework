@@ -1,3 +1,7 @@
+version 1.0.2
+ajustes no autoloader, adicionado simpleTest, loader do mesmo em System_Autoloader,
+corrigidos bugs em toda a aplicação com o simple
+
 version 1.0.1
 ajustes
 

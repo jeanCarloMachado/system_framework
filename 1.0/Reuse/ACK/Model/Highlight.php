@@ -18,7 +18,7 @@
          * @param  array $params=null parametros adicionais á consulta como limite,ordem,etc
          * @return array              dados da tabela
          */
-        public function get($array,$params=null,$columns=null)
+        public function get(array $where,$params=null,$columns=null)
         {
             return parent::get($array,$params=null,$columns=null);
         }
@@ -28,9 +28,9 @@
          * @param   $array colunas do banco
          * @return bool       
          */
-        public function create($array)
+        public function create(array $set)
         {   
-            parent::create($array);
+            parent::create($set);
 
             return false;
         }
@@ -43,7 +43,7 @@
          * @param  array $params=null [description]
          * @return array              [description]
          */
-        public function getTree($array,$params=null,$columns=null)
+        public function getTree(array $array,$params=null,$columns=null) 
         {
 
             /**
@@ -83,6 +83,12 @@
             $result = $this->run();
 
             return $result; 
+        }
+
+        public function count($where = null) 
+        {
+            $where['status'] = 1;
+            return parent::count($where);
         }
     }
 ?>

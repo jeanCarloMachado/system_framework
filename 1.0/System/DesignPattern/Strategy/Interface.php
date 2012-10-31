@@ -11,7 +11,7 @@
 		 * @param [type] $className  [description]
 		 * @param [type] $parameters [description]
 		 */
-		 static public function Factory($className,$parameters);
+		 static public function Factory($className,$parameters=null);
 
 		/**
 		 * seta os parametros no atributo local da classe
