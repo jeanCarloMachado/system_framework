@@ -1,0 +1,45 @@
+version 1.5
+many alteration, created system_db_table_row, all the system passed
+to be in english, auth classes improved, removed extra params from Factory, dbtable modifications
+return rows when called, has it name changed to abstract, it makes possible to work with the older
+models in paralel
+
+
+version 1.0.6
+só as classes de aplicacao CORE ficam fora de suas pastas
+
+version 1.0.5
+ajustes genéricos, de autoloader, objects,etc
+
+version 1.0.2
+ajustes no autoloader, adicionado simpleTest, loader do mesmo em System_Autoloader,
+corrigidos bugs em toda a aplicação com o simple
+
+version 1.0.1
+ajustes
+
+version 1.0
+controle de versões implementado, escopo de plugins e arquivos de configuração bem definidos
+
+version 0.9
+várias mudanças
+
+version 0.5
+mudanças na estrutura de reuse, classes migrando para o inglês, config extenso criado
+
+version 0.4
+melhorias genéricas (adicionado ao github)
+
+version 0.3.6
+melhorias no application
+
+version 0.3.5
+novo System_DB_Table com query's baseadas em zend framework
+
+version 0.3.3
+arquivos de soap estao de volta
+
+version 0.3.2
+nomenclatura correta dos arquivos de system
+
+
