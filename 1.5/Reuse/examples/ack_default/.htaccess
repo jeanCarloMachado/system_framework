@@ -1,0 +1,14 @@
+IndexIgnore *
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} ^(.*\.(jpg|gif|png|css|js)) [NC]
+RewriteRule ^(.*)$ /$1 [L]
+
+RewriteCond %{REQUEST_URI} ^(.*) [NC]
+RewriteRule ^(includes) - [F]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?v1=$1 [L]

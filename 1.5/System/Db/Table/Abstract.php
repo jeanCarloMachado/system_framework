@@ -4,6 +4,9 @@
 	 */
 	abstract class System_Db_Table_Abstract extends Zend_Db_Table_Abstract implements System_DesignPattern_Observer_Interface 
 	{
+		
+		const moduleName = null;
+		
 		/**
 		 * nome da tabela no banco de dados
 		 * @var [type]
@@ -52,6 +55,13 @@
 		 * @var integer
 		 */
 		protected $_returnObj = 0;
+		
+		
+		
+		protected $onlyAvailableClausules = array(
+				"visivel"=>9,
+				"status" => 1
+		);
 
 		
 		public function __construct() 
@@ -72,10 +82,52 @@
 			$this->_returnObj = 1;
 			return $this;
 		}
-
+		
+		/**
+		 * quando esse método é usado com uma
+		 * query somente os status 1 e visivel 1 serao buscados
+		 */
+		public function onlyAvailable()
+		{
+			$this->onlyAvailable = true;
+			return $this;
+		}
+		
+		public function setOnlyAvailable($status=false)
+		{
+			$this->onlyAvailable = $status;
+			return $this;
+		}
+		
+		public function getOnlyAvailable()
+		{
+			return $this->onlyAvailable;
+		}
+		
+		/**
+		 * da merge do where com as query's
+		 * dos disponiveis
+		 * @param unknown $where
+		 */
+		private function onlyAvailableQuerySetup(&$where)
+		{
+		
+			$where = array_merge((array) $this->onlyAvailableClausules,(array) $where);
+			
+			$this->setOnlyAvailable(false);
+			
+			return true;
+		}
+		
 		public function toObjectEnabled()
 		{
 			return $this->_returnObj;
+		}
+
+		private function setToObjectEnabled($status)
+		{
+			$this->_returnObj = $status;
+			return $this;
 		}
 
 		/**
@@ -180,6 +232,8 @@
 
 			$this->_prepareFilter($where);
 
+			if($this->getOnlyAvailable())
+				$this->onlyAvailableQuerySetup($where);
 
 			$where = $this->atribution($where);
 
@@ -482,6 +536,8 @@
 			return count($result);
 		}
 
+
+
 		/**
 		 * executa um sql qualquer
 		 * @param  [type] $sql [description]
@@ -497,13 +553,23 @@
 			/**
   			 * notifica o ocorrido
   			 */
-  			if(!$this->_isSysQuery())
+  			if(!$this->_isSysQuery()) {
   				$this->notify(array("action"=>'sql',
   									"affected"=>$result,
   									"query"=>$sql));
-  			else
-  				$this->_disableSysQuery = 0;
 
+  				if($this->toObjectEnabled()) {
+					$result = call_user_func(array($this->_row,'Factory'),$result,$this->_row);
+
+					/** desativa o to object */
+					$this->setToObjectEnabled(!$this->toObjectEnabled());
+				}
+
+  				
+  			} else {
+
+  				$this->_disableSysQuery = 0;
+  			}
 
 			return $result;	
 		}

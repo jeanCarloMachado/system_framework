@@ -1,0 +1,13 @@
+
+.listaArquivos li  div button, .arquivosListados ul li > div > button {
+	width: 12px;
+	padding: 0;
+	margin: 0;
+}
+
+.form input[type="text"], .form input[type="email"], .form input[type="tel"], .form input[type="password"], .form textarea {
+	background: url(../../imagens/ack/input143.gif) no-repeat left top;
+	border: none;
+	padding: 8px 12px 7px 10px;
+}
+

@@ -1,0 +1,17 @@
+﻿<tr>
+	<td style="font-size:14px; color:#666; font-weight:bold;">Olá #nome. Uma nova senha de acesso foi gerada. Confira abaixo os dados.</td>
+</tr>
+<tr>
+	<td style="padding:20px 0 0 0;">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<td width="40" style="text-align:right; font-size:11px; color:#666; padding:0 8px 0 0; font-weight:bold;">Nome de Usuário</td>
+				<td style="font-size:11px; color:#666;">#email</td>
+			</tr>
+			<tr>
+				<td style="text-align:right; font-size:11px; color:#666; padding:0 8px 0 0; font-weight:bold;">Senha</td>
+				<td style="font-size:11px; color:#666;">#nova_senha</td>
+			</tr>
+		</table>
+	</td>
+</tr>

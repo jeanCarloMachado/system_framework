@@ -4,7 +4,7 @@
 	require_once "System/Config/Ini.php";
 	require_once "System/Registry.php";
 	require_once "System/Object/Password.php";
-	require_once "System/Object/File.php";
+	require_once "System/Object/File/File.php";
 
 	/**
 	 * utilizando:

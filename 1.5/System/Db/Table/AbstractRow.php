@@ -1,11 +1,11 @@
 <?php
-	abstract class System_Db_Table_AbstractRow  implements System_DesignPattern_Factory_Interface
+	abstract class System_Db_Table_AbstractRow
 	{
 		protected $_table = null;
 
 		public $vars = array();
 
-		public static function Factory($params=null)
+		public static function Factory(&$params=null)
 		{
 			$extraArgs = func_get_args();
 			/**
@@ -56,6 +56,7 @@
 
 
 				$newColumnName = self::treatField($element['Field']);
+
 				$this->vars[$newColumnName] = new System_Var;
 				$this->vars[$newColumnName]->setType($element['Type']);
 				if(!empty($data[$element['Field']]))
@@ -103,6 +104,7 @@
 			 * @var [type]
 			 */
 			$attrName = strtolower(substr($method, 3));
+			
 			$action = substr($method,0,3);
 
 			if($action == "get") {
@@ -115,7 +117,14 @@
 		
 		public function getVar($key)
 		{
-
+			if(!$this->vars[$key]) {
+				
+				$var =  new System_Var;
+				$var->setValue("Coluna não existente ( $key )");
+				
+				return $var;
+			}
+				
 		    return $this->vars[$key];
 		}
 		

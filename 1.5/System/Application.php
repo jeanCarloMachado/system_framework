@@ -6,12 +6,16 @@
      */
     class System_Application
     {
+    	
+    	const PHP_MINIMUM_VERSION = 5.3;
         /**
          * controlador frontal do sistema
          */
         private $_frontController;
 
-     
+     	
+        private $phpversion = null;
+        
         /**
          * url do sistema
          * @var [type]
@@ -120,7 +124,20 @@
             }   
             die;
         }
-
+		
+        public function setPHPVersion($phpversion = null)
+        {
+        	if(!($phpversion))
+        		$phpversion = phpversion();
+        	
+        	$phpversion = (float) $phpversion;
+        	
+        	if($phpversion < self::PHP_MINIMUM_VERSION)
+        		throw new Exception("lower version of php than expected");
+        	
+        	$this->phpversion =$phpversion;
+        		
+        }
 
         public function setURL($url)
         {

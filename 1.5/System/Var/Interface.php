@@ -6,6 +6,7 @@
 	interface System_Var_Interface 
 	{
 		public function getValue();
+		public function getVal();
 		public function setValue($value);
 
 		public function getBruteValue();
