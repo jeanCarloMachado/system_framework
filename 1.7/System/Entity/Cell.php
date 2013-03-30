@@ -1,0 +1,13 @@
+<?php
+
+	/**
+	 * essa é a classe que simboliza uma célula de informação
+	 * @author jean
+	 *
+	 */
+	class System_Entity_Cell extends System_Entity_Abstract
+	{
+		
+		
+	}
+?>
